@@ -238,6 +238,22 @@ def remove_file(url):
 
 def extractor(url):
     """Extract details from the response body."""
+    try:
+        re.findall(r"//", url)[1]
+        return
+    except:
+        pass
+
+    try:
+        re.findall(r"https:", url)[1]
+        return
+    except:
+        pass
+
+
+    if not re.match(main_url, url):
+        return
+    print(url)
     response = requester(url, main_url, delay, cook, headers, timeout, host, proxies, user_agents, failed, processed)
     if clone:
         mirror(url, response)
